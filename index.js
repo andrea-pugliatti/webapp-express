@@ -2,12 +2,12 @@ const express = require("express");
 
 const movieRouter = require("./routes/movies");
 
+const serverError = require("./middlewares/serverError");
 const notFound = require("./middlewares/notFound");
 
 const connection = require("./data/db");
 
 const app = express();
-
 const PORT = process.env.PORT;
 
 // Static files
@@ -26,4 +26,5 @@ app.get("/", (req, res) => {
 
 app.use("/api/movies", movieRouter);
 
+app.use(serverError);
 app.use(notFound);
