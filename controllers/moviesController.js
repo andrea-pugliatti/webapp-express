@@ -16,6 +16,7 @@ const index = (req, res) => {
 const show = (req, res) => {
 	const id = Number(req.params.id);
 	const query = `SELECT * FROM movies WHERE id = ?`;
+	const queryReviews = `SELECT id, name, vote, text, created_at, updated_at FROM reviews WHERE movie_id = ?`;
 
 	connection.query(query, [id], (err, response) => {
 		if (err) return res.status(500).json({ error: err, message: err.message });
@@ -23,10 +24,16 @@ const show = (req, res) => {
 		if (response.length === 0)
 			return res.status(404).json({ error: 404, message: "Post Not Found" });
 
-		res.json(response[0]);
+		connection.query(queryReviews, [id], (errReviews, resReviews) => {
+			if (errReviews)
+				return res
+					.status(500)
+					.json({ error: errReviews, message: errReviews.message });
+
+			res.json({ ...response[0], reviews: resReviews });
+		});
 	});
 };
-
 const store = (req, res) => {
 	res.send(`Store me the book`);
 };
