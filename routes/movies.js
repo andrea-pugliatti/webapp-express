@@ -1,28 +1,23 @@
 const express = require("express");
+const moviesController = require("../controllers/moviesController");
 const router = express.Router();
 
-router.get("/", (req, res) => {
-	res.send("Show all books here");
-});
+// Index route
+router.get("/", moviesController.index);
 
-router.get("/:id", (req, res) => {
-	res.send(`Show me the book with id ${req.params.id}`);
-});
+// Show route
+router.get("/:id", moviesController.show);
 
-router.post("/", (req, res) => {
-	res.send(`Store me the book`);
-});
+// Store route
+router.post("/", moviesController.store);
 
-router.put("/:id", (req, res) => {
-	res.send(`Update the book with id ${req.params.id}`);
-});
+// Update route
+router.put("/:id", moviesController.update);
 
-router.patch("/:id", (req, res) => {
-	res.send(`Modify the book with id ${req.params.id}`);
-});
+// Modify route
+router.patch("/:id", moviesController.modify);
 
-router.delete("/:id", (req, res) => {
-	res.send(`Destroy the book with id ${req.params.id}`);
-});
+// Destroy route
+router.delete("/:id", moviesController.destroy);
 
 module.exports = router;
