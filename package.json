@@ -1,0 +1,23 @@
+{
+	"name": "webapp-express",
+	"version": "1.0.0",
+	"description": "",
+	"homepage": "https://github.com/andrea-pugliatti/webapp-express#readme",
+	"bugs": {
+		"url": "https://github.com/andrea-pugliatti/webapp-express/issues"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/andrea-pugliatti/webapp-express.git"
+	},
+	"license": "ISC",
+	"author": "",
+	"type": "commonjs",
+	"main": "index.js",
+	"scripts": {
+		"start": "node --env-file=.env index.js",
+		"dev": "node --env-file=.env --watch index.js",
+		"clean": "rm -rf node_modules",
+		"test": "echo \"Error: no test specified\" && exit 1"
+	}
+}
