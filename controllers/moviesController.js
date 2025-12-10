@@ -1,5 +1,16 @@
+const connection = require("../data/db");
+
 const index = (req, res) => {
-	res.send("Show all books here");
+	const query = `SELECT * FROM movies`;
+
+	connection.query(query, (err, response) => {
+		if (err)
+			return res
+				.status(500)
+				.json({ error: err, message: "Database query failed" });
+
+		res.json(response);
+	});
 };
 
 const show = (req, res) => {
