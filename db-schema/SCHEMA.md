@@ -5,10 +5,11 @@
 ## movies
 
 - id            BIGINT UNSIGNED PK AI
-- title         VARCHAR(100) NOT NULL
-- director      VARCHAR(100) NULL
+- title         VARCHAR(255) NOT NULL
+- director      VARCHAR(255) NOT NULL
 - image         VARCHAR(255) NULL
-- description   TEXT NULL
+- genre         VARCHAR(255) NULL
+- abstract      TEXT NULL
 - release_year  YEAR NULL
 - created_at    DATETIME DEFAULT(NOW())
 - updated_at    DATETIME DEFAULT(NOW())
@@ -17,8 +18,8 @@
 
 - id            BIGINT UNSIGNED PK AI
 - movie_id      BIGINT UNSIGNED FK
-- username      VARCHAR(100) NOT NULL
-- review        TEXT NOT NULL
-- rating        TINYINT NOT NULL
+- name          VARCHAR(255) NOT NULL
+- text          TEXT NOT NULL
+- vote          TINYINT NOT NULL
 - created_at    DATETIME DEFAULT(NOW())
 - updated_at    DATETIME DEFAULT(NOW())
