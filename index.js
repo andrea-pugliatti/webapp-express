@@ -1,4 +1,6 @@
 const express = require("express");
+const movieRouter = require("./routes/movies");
+
 const connection = require("./data/db");
 
 const app = express();
@@ -18,3 +20,5 @@ app.listen(PORT, () => {
 app.get("/", (req, res) => {
 	res.send("Main Index Route");
 });
+
+app.use("/api/movies", movieRouter);
