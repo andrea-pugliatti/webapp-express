@@ -1,5 +1,8 @@
 const express = require("express");
+
 const movieRouter = require("./routes/movies");
+
+const notFound = require("./middlewares/notFound");
 
 const connection = require("./data/db");
 
@@ -22,3 +25,5 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api/movies", movieRouter);
+
+app.use(notFound);
