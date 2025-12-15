@@ -34,8 +34,21 @@ const show = (req, res) => {
 		});
 	});
 };
+
 const store = (req, res) => {
 	res.send(`Store me the book`);
+};
+
+const storeReview = (req, res) => {
+	const id = Number(req.params.id);
+
+	const { name, review, rating } = req.body;
+	const query = `INSERT INTO reviews(movie_id, name, vote, text) VALUES (?,?, ?, ?);`;
+	connection.query(query, [id, name, rating, review], (err, response) => {
+		if (err) return res.status(500).json({ error: true, message: err.message });
+
+		res.status(201).json({ message: "Review created" });
+	});
 };
 
 const update = (req, res) => {
@@ -50,4 +63,4 @@ const destroy = (req, res) => {
 	res.send(`Destroy the book with id ${req.params.id}`);
 };
 
-module.exports = { index, show, store, update, modify, destroy };
+module.exports = { index, show, store, storeReview, update, modify, destroy };

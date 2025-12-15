@@ -11,6 +11,9 @@ router.get("/:id", moviesController.show);
 // Store route
 router.post("/", moviesController.store);
 
+// Store review route
+router.post("/:id/review", moviesController.storeReview);
+
 // Update route
 router.put("/:id", moviesController.update);
 
