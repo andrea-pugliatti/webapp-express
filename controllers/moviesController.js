@@ -42,9 +42,17 @@ const store = (req, res) => {
 const storeReview = (req, res) => {
 	const id = Number(req.params.id);
 
-	const { name, review, rating } = req.body;
-	const query = `INSERT INTO reviews(movie_id, name, vote, text) VALUES (?,?, ?, ?);`;
-	connection.query(query, [id, name, rating, review], (err, response) => {
+	const { name, vote, text } = req.body;
+
+	if (!name || !vote || !text) {
+		return res
+			.status(400)
+			.json({ error: true, message: "Something is wrong with the input" });
+	}
+
+	const query = `INSERT INTO reviews(movie_id, name, vote, text) VALUES (?, ?, ?, ?);`;
+
+	connection.query(query, [id, name, vote, text], (err, response) => {
 		if (err) return res.status(500).json({ error: true, message: err.message });
 
 		res.status(201).json({ message: "Review created" });
