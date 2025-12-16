@@ -1,3 +1,5 @@
+const { pipeline } = require("@huggingface/transformers");
+
 const connection = require("../data/db");
 
 const index = (req, res) => {
@@ -39,12 +41,30 @@ const store = (req, res) => {
 	res.send(`Store me the book`);
 };
 
-const storeReview = (req, res) => {
+async function loadModel() {
+	const classifier = await pipeline(
+		"sentiment-analysis",
+		"Xenova/distilbert-base-uncased-finetuned-sst-2-english",
+		{ device: "cpu", dtype: "q4" },
+	);
+	return classifier;
+}
+
+const storeReview = async (req, res) => {
 	const id = Number(req.params.id);
 
 	const { name, vote, text } = req.body;
 
 	if (!name || !vote || !text) {
+		return res
+			.status(400)
+			.json({ error: true, message: "Something is wrong with the input" });
+	}
+	const classifier = await loadModel();
+	const analysis = await classifier(text);
+	// console.log(analysis);
+
+	if (analysis[0].label === "NEGATIVE") {
 		return res
 			.status(400)
 			.json({ error: true, message: "Something is wrong with the input" });
